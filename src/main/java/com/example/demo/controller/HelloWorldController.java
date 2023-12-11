@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.bean.HelloWorldBean;
+import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ public class HelloWorldController {
     public HelloWorldBean helloWorldBean(
             @PathVariable String name
     ) {
-        return new HelloWorldBean(String.format("hello , %s", name));
+        throw new RuntimeException("this is test error");
+//        return new HelloWorldBean(String.format("hello , %s", name));
     }
 }
