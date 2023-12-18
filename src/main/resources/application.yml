@@ -5,6 +5,10 @@ logging:
   level:
     org.springframework: debug
 
-  spring:
-    message:
-      basename: messages
+spring:
+  message:
+    basename: messages
+  servlet:
+    multipart:
+      maxFileSize: 10MB # 파일 하나의 최대 크기
+      maxRequestSize: 30MB
