@@ -2,10 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.bean.HelloWorldBean;
 import jakarta.validation.Valid;
+import org.springframework.context.MessageSource;
 import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Locale;
 
 
 /**
@@ -13,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class HelloWorldController {
+    private MessageSource messageSource;
+
+    public HelloWorldController(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     //GET
     //
@@ -29,4 +38,13 @@ public class HelloWorldController {
         throw new RuntimeException("this is test error");
 //        return new HelloWorldBean(String.format("hello , %s", name));
     }
+
+    @GetMapping(path = "/hello-world-internationalized")
+    public String HelloWorldInternationalized(
+            @RequestHeader(name = "Accept-Language", required = false) Locale locale
+    ) {
+        System.out.println("test");
+        return this.messageSource.getMessage("greeting.messages", null, locale);
+    }
+
 }
